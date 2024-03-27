@@ -1,5 +1,10 @@
 default:
-	avr-gcc -Os -DF_CPU=16000000UL -mmcu=atmega328p -c -o main.o main.c
-	avr-gcc -o main.bin main.o
-	avr-objcopy -O ihex -R .eeprom main.bin main.hex
-	sudo avrdude -F -V -c arduino -p ATMEGA328P -P /dev/ttyUSB0 -b 57600 -U flash:w:main.hex
+		arduino-cli compile --fqbn arduino:avr:nano ./main/main.ino
+		sudo arduino-cli upload -p /dev/ttyUSB0 --fqbn arduino:avr:nano:cpu=atmega328old ./main/main.ino
+
+build: 
+		arduino-cli compile --fqbn arduino:avr:nano ./main/main.ino
+
+
+upload:
+		sudo arduino-cli upload -p /dev/ttyUSB0 --fqbn arduino:avr:nano:cpu=atmega328old ./main/main.ino
