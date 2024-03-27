@@ -8,3 +8,6 @@ build:
 
 upload:
 		sudo arduino-cli upload -p /dev/ttyUSB0 --fqbn arduino:avr:nano:cpu=atmega328old ./main/main.ino
+
+monitor:
+		sudo arduino-cli monitor -p /dev/ttyUSB0 -c baudrate=9600

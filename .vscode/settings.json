@@ -1,5 +1,7 @@
 {
     "files.associations": {
-        "stdbool.h": "c"
+        "stdbool.h": "c",
+        "compare": "cpp",
+        "cstdint": "cpp"
     }
 }
