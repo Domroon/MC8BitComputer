@@ -8,8 +8,7 @@
 long oldPosition = 0;
 
 bool clock = false;
-
-bool led_on = false;
+bool led_state = LOW;
 
 class Timer{
   private:
@@ -52,16 +51,8 @@ void setup() {
 }
 
 void loop() {
-    if(!clock){
-        led_on = false;
-    }
-    if(ledTimer.checkTimeOver() && clock){
-        led_on = !led_on;
-        ledTimer.restart();
-    }
-    digitalWrite(LED, led_on);
-
     check_step_btn();
+    set_led_state();
 }
 
 void check_step_btn(){
@@ -74,6 +65,17 @@ void check_step_btn(){
     if(!digitalRead(STEP_BTN)){
         digitalWrite(LED, LOW);
     }
+}
+
+void set_led_state(){
+  if(!clock){
+        led_state = LOW;
+    }
+    if(ledTimer.checkTimeOver() && clock){
+        led_state = !led_state;
+        ledTimer.restart();
+    }
+    digitalWrite(LED, led_state);
 }
 
 // ISR
