@@ -1,5 +1,3 @@
-#include <Encoder.h>
-
 #define LED             4
 #define START_STOP_BTN  2
 #define STEP_BTN        3
@@ -8,7 +6,6 @@
 #define CLK             6
 #define DT              5
 long oldPosition = 0;
-Encoder encoder(DT, CLK);
 
 bool clock = false;
 
@@ -44,7 +41,6 @@ class Timer{
     }
 };
 
-
 Timer ledTimer(100);
 
 void setup() {
@@ -66,15 +62,6 @@ void loop() {
     digitalWrite(LED, led_on);
 
     check_step_btn();
-    read_encoder();
-}
-
-void read_encoder(){
-    long newPosition = encoder.read();
-    if(newPosition != oldPosition){
-        oldPosition = newPosition;
-        Serial.println(newPosition);
-    }
 }
 
 void check_step_btn(){
