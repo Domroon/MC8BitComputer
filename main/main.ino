@@ -68,8 +68,9 @@ void check_step_btn(){
     while(digitalRead(STEP_BTN)){
         clock = false;
         digitalWrite(LED, HIGH);
+        delay(100);
     }
-    delay(100);
+    
     if(!digitalRead(STEP_BTN)){
         digitalWrite(LED, LOW);
     }
