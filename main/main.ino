@@ -5,8 +5,10 @@
 // Encoder
 #define CLK             6
 #define DT              5
-long oldPosition = 0;
+int pos = 0;
+int pos_before = 0;
 
+// Clock LED
 bool clock = false;
 bool led_state = LOW;
 
@@ -53,6 +55,8 @@ void setup() {
 void loop() {
     check_step_btn();
     set_led_state();
+    pos = convertGrayToBinary();
+    Serial.println(pos);
 }
 
 void check_step_btn(){
@@ -76,6 +80,20 @@ void set_led_state(){
         ledTimer.restart();
     }
     digitalWrite(LED, led_state);
+}
+
+int convertGrayToBinary(){
+  bool clk = digitalRead(CLK);
+  bool dt = digitalRead(DT);
+  if(clk == 0 && dt == 0){
+    return 0;
+  } else if(clk == 0 && dt == 1){
+    return 1;
+  } else if(clk == 1 && dt == 1){
+    return 2;
+  } else {
+    return 3;
+  }
 }
 
 // ISR
