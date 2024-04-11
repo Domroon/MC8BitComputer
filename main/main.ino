@@ -63,7 +63,7 @@ void loop() {
     check_step_btn();
     set_led_state();
     change_clk_frequency();
-    sendSerialInfo();
+    // sendSerialInfo();
 }
 
 void check_step_btn(){
@@ -73,20 +73,22 @@ void check_step_btn(){
         delay(100);
     }
     
-    if(!digitalRead(STEP_BTN)){
+    if(!digitalRead(STEP_BTN) && !clock){
         digitalWrite(LED, LOW);
     }
 }
 
 void set_led_state(){
-  if(!clock){
-        led_state = LOW;
-    }
-    if(ledTimer.checkTimeOver() && clock){
-        led_state = !led_state;
-        ledTimer.restart();
-    }
+  // if(!clock){
+  //       led_state = LOW;
+  //   }
+  if(ledTimer.checkTimeOver() && clock){
+    led_state = !led_state;
     digitalWrite(LED, led_state);
+    Serial.print("led state: ");
+    Serial.println(led_state);
+    ledTimer.restart();
+  }
 }
 
 int convertGrayToBinary(){
