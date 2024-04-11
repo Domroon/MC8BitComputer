@@ -17,6 +17,7 @@ int frequency_step = 1;
 // Clock LED
 bool clock = false;
 bool led_state = LOW;
+bool ledbuiltin_state = LOW;
 
 class Timer{
   private:
@@ -50,6 +51,7 @@ class Timer{
 
 Timer ledTimer(period_dura_ms);
 Timer serialTimer(1000);
+Timer LED_buildin_timer(500);
 
 void setup() {
     Serial.begin(9600);
@@ -60,10 +62,11 @@ void setup() {
 }
 
 void loop() {
+    change_led_builtin_state();
+    // sendSerialInfo();
     check_step_btn();
     set_led_state();
     change_clk_frequency();
-    // sendSerialInfo();
 }
 
 void check_step_btn(){
@@ -79,14 +82,9 @@ void check_step_btn(){
 }
 
 void set_led_state(){
-  // if(!clock){
-  //       led_state = LOW;
-  //   }
   if(ledTimer.checkTimeOver() && clock){
     led_state = !led_state;
     digitalWrite(LED, led_state);
-    Serial.print("led state: ");
-    Serial.println(led_state);
     ledTimer.restart();
   }
 }
@@ -152,6 +150,14 @@ void sendSerialInfo(){
     Serial.println(" ms");
     serialTimer.restart();
   }
+}
+
+void change_led_builtin_state(){
+    if(LED_buildin_timer.checkTimeOver()){
+        ledbuiltin_state = !ledbuiltin_state;
+        digitalWrite(LED_BUILTIN, ledbuiltin_state);
+        LED_buildin_timer.restart();
+    }
 }
 
 // ISR
