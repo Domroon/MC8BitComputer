@@ -1,6 +1,6 @@
 #define LED             4
-#define START_STOP_BTN  2
-#define STEP_BTN        3
+#define START_STOP_BTN  3
+#define STEP_BTN        A5
 
 // Encoder
 #define CLK             6
